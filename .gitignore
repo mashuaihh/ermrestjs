@@ -39,3 +39,7 @@ jsdoc
 # Misc
 *.swp
 *~
+
+# WebStrom IDE
+.idea/
+.idea
