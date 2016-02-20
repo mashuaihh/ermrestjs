@@ -8,7 +8,7 @@
   "scripts": {
     "build": "make build",
     "pretest": "make build",
-    "test": "make test",
+    "test": "node_modules/.bin/karma start test/karma.conf.js",
     "test:testem": "make testem",
     "docs": "make doc"
   },
@@ -23,14 +23,15 @@
     "library"
   ],
   "devDependencies": {
-      "bower": "x",
-      "mocha": "x",
-      "chai": "x",
-      "testem": "x",
-      "closurecompiler": "x",
-      "jshint": "x",
-      "jsdoc": "x",
-      "jsdoc-to-markdown": "x",
-      "xmlhttprequest": "x"
+    "bower": "x",
+    "karma": "x",
+    "karma-jasmine": "x",
+    "karma-chrome-launcher": "x",
+    "testem": "x",
+    "closurecompiler": "x",
+    "jshint": "x",
+    "jsdoc": "x",
+    "jsdoc-to-markdown": "x",
+    "xmlhttprequest": "x"
   }
 }

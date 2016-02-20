@@ -17,8 +17,9 @@ BOWER=bower_components
 
 # JavaScript source and test specs
 JS=js
+TESTDIR=test
 SOURCE=$(JS)/ermrest.js
-SPECS=$(JS)/main_spec.js
+SPECS=$(TESTDIR)/ngermrest.controller.test.spec.js
 
 # Distribution target
 DIST=dist
@@ -34,7 +35,6 @@ JSDOC=jsdoc
 
 # Hidden target files (for make only)
 LINT=.make-lint
-TEST=.make-test.js
 
 .PHONY: all
 all: build $(DOC)
@@ -113,9 +113,7 @@ distclean: clean
 test: $(TEST)
 
 # Rule to run the unit tests
-$(TEST): $(SOURCE) $(SPECS) $(BIN)
-	cat $(SOURCE) $(SPECS) > $(TEST)
-	$(BIN)/mocha $(TEST) || (rm -f $(TEST) &&  exit 1)
+$(TEST): $(BIN)/karma start $(TESTDIR)/karma.conf.js
 
 # Rule to run testem
 .PHONY: testem
