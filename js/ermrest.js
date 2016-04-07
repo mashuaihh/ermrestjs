@@ -433,7 +433,10 @@ var ERMrest = (function () {
             }
         }
         return _http.delete(path).then(function(response) {
-            return response.data;
+            //change response.data to response for now
+            //the ermrest API seems to suggest that response for DELETE doesn't have a data body
+            //return response.data;
+            return response;
         }, function(response) {
             return _q.reject(response.data);
         });
@@ -515,7 +518,7 @@ var ERMrest = (function () {
         this.table = table;
         this.data = jsonEntity;
 
-        var keys = {};
+        var keys = [];
         if (table.keys.length) {
             keys = table.keys[0].unique_columns;
         }
@@ -598,7 +601,6 @@ var ERMrest = (function () {
             console.log(response);
             return _q.reject(response.data);
         });
-
     };
 
     /**
