@@ -49,9 +49,6 @@ describe('In ERMrest,', function () {
                 schemas = data;
                 expect(schemas).toBeDefined();
             });
-            //$digest() enables Promise to be resolved
-            //$rootScope.$digest();
-            //flush() enables the http request to be sent
             $httpBackend.flush();
         });
         it('should have available getSchemas() method', function () {

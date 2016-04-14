@@ -42,7 +42,6 @@ describe('In ERMrest,', function () {
         schemas = catalog.getSchemas();
         legacySchema = schemas[legacy];
     });
-
     it('Ermrest catalog should get \'dataset\' table,', function () {
         datasetTable = legacySchema.getTable(dataset);
         expect(datasetTable).toBeDefined();
@@ -69,8 +68,6 @@ describe('In ERMrest,', function () {
                 }
                 expect(numsOfRowsBefore).toBeGreaterThan(0);
             });
-            //$digest() enables Promise to be resolved
-            //$rootScope.$digest();
             //flush() enables the http request to be sent
             $httpBackend.flush();
         });
@@ -122,11 +119,13 @@ describe('In ERMrest,', function () {
         });
     });
 
-    describe('dataset table deletes entity', function () {
+    describe('dataset table deletes, updates entity', function () {
         var deleteId = 1568;
         beforeEach(function () {
             $httpBackend.whenDELETE(ermrestBaseUrl + '/catalog/' + catalog_id + '/entity/' + legacy + ':' + dataset
                 + '/id=' + deleteId).respond(204);
+            $httpBackend.whenPUT(ermrestBaseUrl + '/catalog/' + catalog_id + '/entity/' + legacy + ':' + dataset
+            ).respond(getJSONFixture('catalog.1.entity.legacy:dataset.id.13569.json'));
         });
         it('should delete the entity', function () {
             var entityToBeDeleted = {id: deleteId};
@@ -135,14 +134,6 @@ describe('In ERMrest,', function () {
             });
             $httpBackend.flush();
         })
-    });
-
-    describe('dataset table updates entity', function () {
-        var updateId = 13569;
-        beforeEach(function () {
-            $httpBackend.whenPUT(ermrestBaseUrl + '/catalog/' + catalog_id + '/entity/' + legacy + ':' + dataset
-            ).respond(getJSONFixture('catalog.1.entity.legacy:dataset.id.13569.json'));
-        });
         it('should update the entity', function () {
             var entityToBeUpdated = datasetTableEntities[0];
             var newTitle = "testingTitle";
@@ -151,7 +142,7 @@ describe('In ERMrest,', function () {
                 expect(response[0][0].title).toBe(newTitle);
             });
             $httpBackend.flush();
-        })
+        });
     });
 
 });
